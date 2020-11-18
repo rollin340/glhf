@@ -138,7 +138,6 @@
 									<select name='developer' <?php echo $disableSelection ?>>
 										<option value='0'>Assign developer</option>
 										<option value='1'>Clear developer</option>
-										<option value='2'>Set as invalid</option>
 										<?php
 											$query = db_query("SELECT * FROM `accounts` WHERE `account_type` = 'developer' ORDER BY `experience`;");
 											

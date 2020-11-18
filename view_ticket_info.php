@@ -180,7 +180,7 @@
 							?>
 									<a href='view_account_info.php?a=<?= $ticket->get_reviewed_by()->id ?>'><?= $ticket->get_reviewed_by()->get_full_name() ?></a>
 							<?php
-									if(strtolower($ticket->get_status()) == "pending" && ($account->is_rev() || $account->is_admin()) && $account->id == $ticket->get_reviewed_by()){
+									if(strtolower($ticket->get_status()) == "pending" && ($account->is_rev() || $account->is_admin()) && $account->id == $ticket->get_reviewed_by()->id){
 							?>
 										<form action='ticket_assign.php' method='POST' style='display:inline-block;'>
 											<input type='hidden' name='account_id' value='<?= $account->id ?>' />
@@ -220,11 +220,10 @@
 							Assign to:
 						</td>
 						<td>
-							<form action='ticket_assign.php' method='POST'>
+							<form action='ticket_assign.php' method='POST' style='display:inline-block;'>
 								<select name='developer' <?php echo $disableSelection ?>>
 									<option value='0'>Assign developer</option>
 									<option value='1'>Clear developer</option>
-									<option value='2'>Set as invalid</option>
 							<?php
 								$query = db_query("SELECT * FROM `accounts` WHERE `account_type` = 'developer' ORDER BY `experience`;");
 								
@@ -235,8 +234,13 @@
 								}
 							?>
 								</select>
-								<input type='checkbox' class='confirm_checkbox' name='ticket_id' value='<?= $ticket->ticket_id ?>' <?php echo $disableSelection ?>/>
+								<input type='checkbox' class='confirm_checkbox' name='ticket_id' value='<?= $ticket->ticket_id ?>' <?= $disableSelection ?>/>
 								<input type='submit' name='assign_dev' id='confirm_<?= $ticket->ticket_id ?>' value='Assign' disabled/>
+							</form>
+							<form action='ticket_assign.php' method='POST' style='display:inline-block;'>
+								<input type='hidden' name='account_id' value='<?= $account->id ?>' />
+								<input type='hidden' name='ticket_id' value='<?= $ticket->ticket_id ?>' />
+								<input type='submit' name='set_invalid' value='Set as invalid' onClick="return confirm('Confirm setting the ticket as invalid?')" <?= $disableSelection ?>/>
 							</form>
 						</td>
 					</tr>
