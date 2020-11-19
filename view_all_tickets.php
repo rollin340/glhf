@@ -46,6 +46,13 @@
 		?>
 		<br />
 		<br />
+		<table id='no_records' class='basic_table' style='width:60%; display:none;'>
+			<tr>
+				<td style="text-align:center; background-color:#C9E0EF;">
+					:: No Matching tickets ::
+				</td>
+			</tr>
+		</table>
 		<table id='ticket_table' class='basic_table'>
 			<tr>
 				<td style='text-align:center;'>

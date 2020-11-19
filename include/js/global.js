@@ -43,7 +43,9 @@ $(".confirm_checkbox").change(function(){
 
 	@param string
 */
-function filter_tickets(search_text){	
+function filter_tickets(search_text){
+	let total = 0;
+	
 	//For each ticket row
 	$("#ticket_table tr:not(:first)").each(function(){
 		//Set initial bool
@@ -66,8 +68,17 @@ function filter_tickets(search_text){
 		//Show/Hide accordingly
 		if(show_ticket){
 			$(this).show();
+			total++;
 		}else{
 			$(this).hide();
+		}
+		
+		if(total == 0){
+			$('#ticket_table').hide();
+			$('#no_records').show();
+		}else{
+			$('#ticket_table').show();
+			$('#no_records').hide();
 		}
 	});
 }
